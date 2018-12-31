@@ -6,7 +6,7 @@
 /*   By: pauljull <pauljull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 17:28:04 by pauljull          #+#    #+#             */
-/*   Updated: 2018/12/24 17:58:20 by pauljull         ###   ########.fr       */
+/*   Updated: 2018/12/28 17:01:09 by pauljull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,24 @@
 #include <sys/uio.h>
 #include <stdio.h>
 #include <stdlib.h>
+
+t_list	*fd_management(t_list *lst, int fd)
+{
+	t_list	*head;
+	t_list	*node;
+
+	head = lst;
+	while (lst)
+	{
+		if (lst->content_size == (size_t)fd)
+			return (lst);
+		lst = lst->next;
+	}
+	ft_lst_push_back(&head, NULL, 0);
+	node = ft_lst_last(head);
+	node->content_size = fd;
+	return (node);
+}
 
 void	fill_line(t_list *lst, char **line)
 {
@@ -66,6 +84,7 @@ int		ft_read(t_list *lst, char **line, int fd)
 int		get_next_line(const int fd, char **line)
 {
 	static t_list	*lst;
+	t_list			*buff_lst;
 
 	if (!line || fd < 0 || BUFF_SIZE <= 0)
 		return (-1);
@@ -75,5 +94,12 @@ int		get_next_line(const int fd, char **line)
 			return (-1);
 		lst->content_size = fd;
 	}
-	return (ft_read(lst, line, fd));
+	if (!(buff_lst = fd_management(lst, fd)))
+		return (-1);
+	if (ft_strchr(buff_lst->content, '\n'))
+	{
+		fill_line(buff_lst, line);
+		return (1);
+	}
+	return (ft_read(buff_lst, line, fd));
 }
