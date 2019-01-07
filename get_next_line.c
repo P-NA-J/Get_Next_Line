@@ -6,7 +6,7 @@
 /*   By: pauljull <pauljull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 17:28:04 by pauljull          #+#    #+#             */
-/*   Updated: 2018/12/28 17:01:09 by pauljull         ###   ########.fr       */
+/*   Updated: 2018/12/31 17:21:00 by pauljull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	fill_line(t_list *lst, char **line)
 		index += 1;
 	if (((char *)lst->content)[0] != '\0')
 	{
-		*line = ft_strnew(index);
+		if (!(*line = ft_strnew(index)))
+			return ;
 		ft_strncpy(*line, lst->content, index);
 		tmp = lst->content;
 		if (((char *)lst->content)[0] == '\0')
@@ -56,6 +57,8 @@ void	fill_line(t_list *lst, char **line)
 		else
 			lst->content = ft_strsub(lst->content, ft_strlen(*line) + 1,
 			ft_strlen(lst->content) - ft_strlen(*line) - 1);
+		if (!(lst->content))
+			return ;
 		free(tmp);
 	}
 }
@@ -71,7 +74,8 @@ int		ft_read(t_list *lst, char **line, int fd)
 		if ((ret = read(fd, buff, BUFF_SIZE)) < 0)
 			return (-1);
 		buff[ret] = 0;
-		lst->content = ft_strjoinf((char *)lst->content, buff, 1);
+		if (!(lst->content = ft_strjoinf((char *)lst->content, buff, 1)))
+			return (-1);
 		if (ret == 0)
 			break ;
 	}
