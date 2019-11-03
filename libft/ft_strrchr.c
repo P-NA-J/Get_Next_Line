@@ -1,24 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pauljull <pauljull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/07 17:28:04 by pauljull          #+#    #+#             */
-/*   Updated: 2018/12/31 17:33:07 by pauljull         ###   ########.fr       */
+/*   Created: 2018/11/20 15:33:03 by pauljull          #+#    #+#             */
+/*   Updated: 2018/12/31 17:30:20 by pauljull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
+#include "./includes/libft.h"
 
-# define GET_NEXT_LINE_H
+char	*ft_strrchr(const char *s, int c)
+{
+	size_t			index;
+	unsigned char	c_buff;
+	char			*s_buff;
 
-# include "./libft/includes/libft.h"
-# define BUFF_SIZE 10
-
-int		get_next_line(const int fd, char **line);
-void	fill_line(t_list *lst, char **line);
-int		ft_read(t_list *lst, char **line, int fd);
-t_list	*fd_management(t_list *lst, int fd);
-#endif
+	if (!s)
+		return (NULL);
+	index = ft_strlen(s);
+	c_buff = (unsigned char)c;
+	s_buff = (char *)s;
+	while (index > 0)
+	{
+		if (s[index] == c_buff)
+			return (&s_buff[index]);
+		index -= 1;
+	}
+	if (s[index] == c_buff)
+		return (&s_buff[index]);
+	return (NULL);
+}

@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pauljull <pauljull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/07 17:28:04 by pauljull          #+#    #+#             */
-/*   Updated: 2018/12/31 17:33:07 by pauljull         ###   ########.fr       */
+/*   Created: 2018/11/12 10:33:12 by pauljull          #+#    #+#             */
+/*   Updated: 2018/12/31 17:28:14 by pauljull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
+#include "./includes/libft.h"
+#include <unistd.h>
 
-# define GET_NEXT_LINE_H
+void	ft_putstr_fd(char const *s, int fd)
+{
+	size_t	count;
 
-# include "./libft/includes/libft.h"
-# define BUFF_SIZE 10
-
-int		get_next_line(const int fd, char **line);
-void	fill_line(t_list *lst, char **line);
-int		ft_read(t_list *lst, char **line, int fd);
-t_list	*fd_management(t_list *lst, int fd);
-#endif
+	if (!s || fd < 0)
+		return ;
+	count = ft_strlen(s);
+	write(fd, s, count);
+	write(fd, "\n", 1);
+}

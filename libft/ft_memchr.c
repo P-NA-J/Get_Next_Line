@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pauljull <pauljull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/07 17:28:04 by pauljull          #+#    #+#             */
-/*   Updated: 2018/12/31 17:33:07 by pauljull         ###   ########.fr       */
+/*   Created: 2018/11/20 10:19:01 by pauljull          #+#    #+#             */
+/*   Updated: 2018/12/31 17:26:43 by pauljull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
+#include "./includes/libft.h"
 
-# define GET_NEXT_LINE_H
+void	*ft_memchr(const void *s, int c, size_t n)
+{
+	size_t			index;
+	unsigned char	*s_buff;
 
-# include "./libft/includes/libft.h"
-# define BUFF_SIZE 10
-
-int		get_next_line(const int fd, char **line);
-void	fill_line(t_list *lst, char **line);
-int		ft_read(t_list *lst, char **line, int fd);
-t_list	*fd_management(t_list *lst, int fd);
-#endif
+	s_buff = (unsigned char*)s;
+	index = 0;
+	if (!s)
+		return (NULL);
+	while (index < n || s_buff[index] != 0)
+	{
+		if (s_buff[index] == (unsigned char)c)
+			return (&((void*)s)[index]);
+		index += 1;
+	}
+	return (NULL);
+}

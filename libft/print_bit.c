@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   print_bit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pauljull <pauljull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/07 17:28:04 by pauljull          #+#    #+#             */
-/*   Updated: 2018/12/31 17:33:07 by pauljull         ###   ########.fr       */
+/*   Created: 2018/11/10 16:47:11 by pauljull          #+#    #+#             */
+/*   Updated: 2018/12/31 17:31:16 by pauljull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
+#include "./includes/libft.h"
+#include <unistd.h>
 
-# define GET_NEXT_LINE_H
+void		print_bit(char c)
+{
+	char	index;
 
-# include "./libft/includes/libft.h"
-# define BUFF_SIZE 10
-
-int		get_next_line(const int fd, char **line);
-void	fill_line(t_list *lst, char **line);
-int		ft_read(t_list *lst, char **line, int fd);
-t_list	*fd_management(t_list *lst, int fd);
-#endif
+	index = 7;
+	while (index >= 0)
+	{
+		if (n_bit_value(c, index) == 1)
+			write(1, "1", 1);
+		else
+			write(1, "0", 1);
+		index -= 1;
+	}
+}

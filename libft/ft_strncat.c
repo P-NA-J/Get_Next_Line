@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strncat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pauljull <pauljull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/07 17:28:04 by pauljull          #+#    #+#             */
-/*   Updated: 2018/12/31 17:33:07 by pauljull         ###   ########.fr       */
+/*   Created: 2018/11/20 15:14:20 by pauljull          #+#    #+#             */
+/*   Updated: 2018/12/31 17:29:42 by pauljull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
+#include "./includes/libft.h"
 
-# define GET_NEXT_LINE_H
+char	*ft_strncat(char *s1, const char *s2, size_t n)
+{
+	size_t	index;
+	size_t	s1_len;
 
-# include "./libft/includes/libft.h"
-# define BUFF_SIZE 10
-
-int		get_next_line(const int fd, char **line);
-void	fill_line(t_list *lst, char **line);
-int		ft_read(t_list *lst, char **line, int fd);
-t_list	*fd_management(t_list *lst, int fd);
-#endif
+	if (!s1 || !s2)
+		return (NULL);
+	s1_len = ft_strlen(s1);
+	index = 0;
+	while (index < n && s2[index] != 0)
+	{
+		s1[s1_len + index] = s2[index];
+		index += 1;
+	}
+	s1[index + s1_len] = 0;
+	return (s1);
+}

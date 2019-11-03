@@ -1,24 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pauljull <pauljull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/07 17:28:04 by pauljull          #+#    #+#             */
-/*   Updated: 2018/12/31 17:33:07 by pauljull         ###   ########.fr       */
+/*   Created: 2018/11/21 10:57:08 by pauljull          #+#    #+#             */
+/*   Updated: 2018/12/31 17:26:18 by pauljull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
+#include "./includes/libft.h"
+#include <stdlib.h>
 
-# define GET_NEXT_LINE_H
+t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *))
+{
+	t_list	*new;
+	t_list	*buff;
 
-# include "./libft/includes/libft.h"
-# define BUFF_SIZE 10
-
-int		get_next_line(const int fd, char **line);
-void	fill_line(t_list *lst, char **line);
-int		ft_read(t_list *lst, char **line, int fd);
-t_list	*fd_management(t_list *lst, int fd);
-#endif
+	buff = NULL;
+	new = NULL;
+	if (!lst || !f)
+		return (NULL);
+	while (lst)
+	{
+		buff = f(lst);
+		ft_lst_push_back(&new, buff->content, buff->content_size);
+		free(buff);
+		lst = lst->next;
+	}
+	return (new);
+}
